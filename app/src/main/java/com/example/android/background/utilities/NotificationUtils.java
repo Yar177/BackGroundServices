@@ -85,6 +85,8 @@ public class NotificationUtils {
                 ))
                 .setDefaults(Notification.DEFAULT_VIBRATE)
                 .setContentIntent(contentIntent(context))
+                .addAction(dringWaterAction(context))
+                .addAction(ignoreReminderAction(context))
                 .setAutoCancel(true);
 
         //  (11) If the build version is greater than JELLY_BEAN and lower than OREO,
