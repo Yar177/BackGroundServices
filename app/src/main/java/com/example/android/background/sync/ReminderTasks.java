@@ -14,11 +14,7 @@ public static final String ACTION_INCREMENT_WATER_COUNT = "increment-water-count
 public static void executeTask(Context context, String action){
 // TODO (7) Add a Context called context and String parameter called action to the parameter list
 // TODO (8) If the action equals ACTION_INCREMENT_WATER_COUNT, call this class's incrementWaterCount
-
-if (action == ACTION_INCREMENT_WATER_COUNT){
-    incrementWaterCount(context);
-}
-
+if (action == ACTION_INCREMENT_WATER_COUNT){incrementWaterCount(context);}
 }
 
 // TODO (3) Create a private static void method called incrementWaterCount
@@ -27,9 +23,4 @@ if (action == ACTION_INCREMENT_WATER_COUNT){
 // TODO (5) From incrementWaterCount, call the PreferenceUtility method that will ultimately update the water count
         PreferenceUtilities.incrementWaterCount(context);
     }
-
-
-
-
-
 }
