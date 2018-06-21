@@ -125,12 +125,12 @@ public class NotificationUtils {
 
         incrementWaterCountIntent.setAction(ReminderTasks.ACTION_INCREMENT_WATER_COUNT);
 
-        PendingIntent incrementWaterPendingIntet = PendingIntent.getService(context, ACTION_DRINK_PENDING_INTENT_ID,
+        PendingIntent incrementWaterPendingIntent = PendingIntent.getService(context, ACTION_DRINK_PENDING_INTENT_ID,
                 incrementWaterCountIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-        NotificationCompat.Action drinkWaterAction = new NotificationCompat.Action(R.drawable.ic_cancel_black_24px,
-                "no thanks.",
-                incrementWaterPendingIntet);
+        NotificationCompat.Action drinkWaterAction = new NotificationCompat.Action(R.drawable.ic_local_drink_black_24px,
+                "I did it!",
+                incrementWaterPendingIntent);
 
         return drinkWaterAction;
 
