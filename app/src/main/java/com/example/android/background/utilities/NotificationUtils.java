@@ -15,6 +15,8 @@ import android.support.v4.content.ContextCompat;
 
 import com.example.android.background.MainActivity;
 import com.example.android.background.R;
+import com.example.android.background.sync.ReminderTasks;
+import com.example.android.background.sync.WaterReminderIntentService;
 
 /**
  * Utility class for creating hydration notifications
@@ -25,6 +27,9 @@ public class NotificationUtils {
 
 
         private static final int WATER_REMINDER_PENDING_INTENT_ID = 3417;
+
+        private static final int ACTION_IGNORE_PENDING_INTENT_ID = 31217;
+        private static final int ACTION_DRINK_PENDING_INTENT_ID = 33217;
 
 
         private static final String WATER_REMINDER_NOTIFICATION_CHANNEL_ID = "reminder_notification_channel";
@@ -95,7 +100,41 @@ public class NotificationUtils {
         notificationManager.notify(WATER_REMINDER_NOTIFICATION_ID, notificationBuilder.build());
     }
 
+    private static NotificationCompat.Action ignoreReminderAction(Context context){
 
+        Intent ignoreReminderIntent = new Intent(context, WaterReminderIntentService.class);
+
+        ignoreReminderIntent.setAction(ReminderTasks.ACTION_DISMISS_NOTIFICATION);
+
+        PendingIntent ignoreReminderPendingIntet = PendingIntent.getService(context, ACTION_IGNORE_PENDING_INTENT_ID,
+                ignoreReminderIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        NotificationCompat.Action ignoreReminderAction = new NotificationCompat.Action(R.drawable.ic_cancel_black_24px,
+                "no thanks.",
+                ignoreReminderPendingIntet);
+
+        return ignoreReminderAction;
+
+    }
+
+
+
+    private static NotificationCompat.Action dringWaterAction(Context context){
+
+        Intent incrementWaterCountIntent = new Intent(context, WaterReminderIntentService.class);
+
+        incrementWaterCountIntent.setAction(ReminderTasks.ACTION_INCREMENT_WATER_COUNT);
+
+        PendingIntent incrementWaterPendingIntet = PendingIntent.getService(context, ACTION_DRINK_PENDING_INTENT_ID,
+                incrementWaterCountIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        NotificationCompat.Action drinkWaterAction = new NotificationCompat.Action(R.drawable.ic_cancel_black_24px,
+                "no thanks.",
+                incrementWaterPendingIntet);
+
+        return drinkWaterAction;
+
+    }
 
     //  (1) Create a helper method called contentIntent with a single parameter for a Context. It
     // should return a PendingIntent. This method will create the pending intent which will trigger when
