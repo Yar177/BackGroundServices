@@ -1,5 +1,6 @@
 package com.example.android.background.sync;
 
+import android.annotation.SuppressLint;
 import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Context;
@@ -14,6 +15,7 @@ public class WaterReminderFirebaseJobService extends JobService {
     private AsyncTask mBackgroundTask;
 
 
+    @SuppressLint("StaticFieldLeak")
     @Override
     public boolean onStartJob(final JobParameters jobParameters) {
         mBackgroundTask = new AsyncTask() {
@@ -36,8 +38,9 @@ public class WaterReminderFirebaseJobService extends JobService {
 
     @Override
     public boolean onStopJob(JobParameters params) {
-
-
-        return false;
+        if(mBackgroundTask != null){
+            mBackgroundTask.cancel(true);
+        }
+        return true;
     }
 }
