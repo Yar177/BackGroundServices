@@ -1,10 +1,10 @@
 package com.example.android.background.sync;
 
-import android.annotation.SuppressLint;
-import android.app.job.JobParameters;
-import android.app.job.JobService;
 import android.content.Context;
 import android.os.AsyncTask;
+
+import com.firebase.jobdispatcher.JobParameters;
+import com.firebase.jobdispatcher.JobService;
 
 /**
  * Created by 10190270 on 6/22/2018.
@@ -15,7 +15,7 @@ public class WaterReminderFirebaseJobService extends JobService {
     private AsyncTask mBackgroundTask;
 
 
-    @SuppressLint("StaticFieldLeak")
+//    @SuppressLint("StaticFieldLeak")
     @Override
     public boolean onStartJob(final JobParameters jobParameters) {
         mBackgroundTask = new AsyncTask() {
@@ -33,7 +33,7 @@ public class WaterReminderFirebaseJobService extends JobService {
             }
         };
         mBackgroundTask.execute();
-        return false;
+        return true;
     }
 
     @Override

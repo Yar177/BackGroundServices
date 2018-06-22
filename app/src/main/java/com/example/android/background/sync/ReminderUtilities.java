@@ -3,6 +3,13 @@ package com.example.android.background.sync;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.Trigger;
+
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -19,6 +26,22 @@ public class ReminderUtilities {
     private static boolean sInitializes;
 
     synchronized static void scheduleChargingReminder(@NonNull final Context context){
+        if (sInitializes) return;
+
+        GooglePlayDriver driver = new GooglePlayDriver(context);
+        FirebaseJobDispatcher dispatcher = new FirebaseJobDispatcher(driver);
+
+        Job constraintReminderJob = dispatcher.newJobBuilder()
+                .setService(WaterReminderFirebaseJobService.class)
+                .setTag(REMINDER_JOB_TAG)
+                .setConstraints(Constraint.DEVICE_CHARGING)
+                .setLifetime(Lifetime.FOREVER)
+                .setTrigger(Trigger.executionWindow(
+                        REMINDER_INTERVAL_SECONDS, REMINDER_INTERVAL_SECONDS + SYNC_FLEXTIME_SECONDS
+                ))
+                .setReplaceCurrent(true)
+                .build();
+
 
     }
 
