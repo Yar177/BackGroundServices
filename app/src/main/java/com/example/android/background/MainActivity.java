@@ -77,6 +77,15 @@ public class MainActivity extends AppCompatActivity implements
 
     }
 
+    private void showCharging(boolean isChargin){
+        if (isChargin){
+            mChargingImageView.setImageResource(R.drawable.ic_power_pink_80px);
+        }else {
+            mChargingImageView.setImageResource(R.drawable.ic_power_grey_80px);
+        }
+    }
+
+
     /**
      * Adds one to the water count and shows a toast
      */
