@@ -92,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements
 
             int batteryStatus = currentBatteryStatusIntent.getIntExtra(BatteryManager.EXTRA_STATUS, -1);
             boolean isCharging = batteryStatus == BatteryManager.BATTERY_STATUS_CHARGING || batteryStatus == BatteryManager.BATTERY_STATUS_FULL;
-
             showCharging(isCharging);
 
         }
