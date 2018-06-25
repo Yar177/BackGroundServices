@@ -15,7 +15,10 @@
  */
 package com.example.android.background;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -39,6 +42,9 @@ public class MainActivity extends AppCompatActivity implements
 
     private Toast mToast;
 
+    IntentFilter mChargingIntentFilter;
+    ChargingBroadcastReciver mChargingReceiver;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +62,31 @@ public class MainActivity extends AppCompatActivity implements
         /** Setup the shared preference listener **/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
+
+        mChargingIntentFilter = new IntentFilter();
+        mChargingIntentFilter.addAction(Intent.ACTION_POWER_CONNECTED);
+        mChargingIntentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
+
+        mChargingReceiver = new ChargingBroadcastReciver();
+
     }
+
+
+    @Override
+    protected void onResume(){
+        super.onResume();
+        registerReceiver(mChargingReceiver, mChargingIntentFilter);
+    }
+
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        unregisterReceiver(mChargingReceiver);
+
+
+    }
+
 
     /**
      * Updates the TextView to display the new water count from SharedPreferences
@@ -127,4 +157,18 @@ public class MainActivity extends AppCompatActivity implements
     public void testNotification(View view){
         NotificationUtils.remindUserBecauseCharging(this    );
     }
+
+
+
+    private class ChargingBroadcastReciver extends BroadcastReceiver{
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            boolean isCharging = (action.equals(Intent.ACTION_POWER_CONNECTED));
+            showCharging(isCharging);
+
+        }
+    }
+
 }

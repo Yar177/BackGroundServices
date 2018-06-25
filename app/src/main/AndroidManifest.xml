@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.example.android.background">
+    package="com.example.android.background">
+
     <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
@@ -19,15 +20,21 @@
             </intent-filter>
         </activity>
 
-        <!--  (14) Declare WaterReminderIntentService in the Manifest and set the exported
-         attribute to false-->
-        <service android:name=".sync.WaterReminderIntentService"
-            android:exported="false" />
-        <service android:name=".sync.WaterReminderIntentService"
+        <!--This is required for immediate syncs -->
+        <service
+            android:name=".sync.WaterReminderIntentService"
+            android:exported="false"/>
+
+        <!-- This is the Service declaration used in conjunction with FirebaseJobDispatcher -->
+        <service
+            android:name=".sync.WaterReminderFirebaseJobService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.firebase.jobdispatcher.ACTION_EXECUTE"/>
             </intent-filter>
         </service>
+
+
     </application>
+
 </manifest>
