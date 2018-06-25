@@ -82,9 +82,6 @@ public class MainActivity extends AppCompatActivity implements
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             BatteryManager batteryManager = (BatteryManager) getSystemService(BATTERY_SERVICE);
 
-
-
-
             showCharging(batteryManager.isCharging());
         }else{
             IntentFilter iFilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
