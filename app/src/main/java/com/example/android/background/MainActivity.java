@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity implements
         mChargingIntentFilter.addAction(Intent.ACTION_POWER_DISCONNECTED);
 
         mChargingReceiver = new ChargingBroadcastReciver();
+//        registerReceiver(mChargingReceiver, mChargingIntentFilter);
 
     }
 
@@ -108,6 +109,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void showCharging(boolean isChargin){
+
+
         if (isChargin){
             mChargingImageView.setImageResource(R.drawable.ic_power_pink_80px);
         }else {
@@ -137,6 +140,9 @@ public class MainActivity extends AppCompatActivity implements
         /** Cleanup the shared preference listener **/
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.unregisterOnSharedPreferenceChangeListener(this);
+
+
+//        unregisterReceiver(mChargingReceiver);
     }
 
     /**
