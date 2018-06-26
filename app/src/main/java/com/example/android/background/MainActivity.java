@@ -94,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements
 
         }
 
-
         // Register the receiver for future state changes
         registerReceiver(mChargingReceiver, mChargingIntentFilter);
     }
@@ -104,8 +103,6 @@ public class MainActivity extends AppCompatActivity implements
     protected void onPause(){
         super.onPause();
         unregisterReceiver(mChargingReceiver);
-
-
     }
 
 
